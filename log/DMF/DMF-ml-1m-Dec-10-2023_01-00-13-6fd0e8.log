@@ -1,0 +1,410 @@
+Sun 10 Dec 2023 01:00:13 INFO  ['main.py', '--config-file', 'general/DMF.yaml']
+Sun 10 Dec 2023 01:00:13 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./dataset/ml-1m
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 500
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'RS': [0.8, 0.1, 0.1]}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}, 'groupby': 'user'}
+repeatable = False
+metrics = ['Recall', 'MRR', 'NDCG', 'Hit', 'Precision']
+topk = [10]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 2048
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id', 'timestamp'], 'item': ['item_id', 'type']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [10, inf)
+item_inter_num_interval = [20, inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+inter_matrix_type = 01
+user_embedding_size = 64
+item_embedding_size = 64
+user_hidden_size_list = [64, 64]
+item_hidden_size_list = [64, 64]
+embedding_size = 64
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cuda
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Sun 10 Dec 2023 01:00:13 INFO  ml-1m
+The number of users: 609
+Average actions of users: 111.6217105263158
+The number of items: 1297
+Average actions of items: 52.36574074074074
+The number of inters: 67866
+The sparsity of the dataset: 91.40798584076174%
+Remain Fields: ['user_id', 'item_id', 'timestamp']
+Sun 10 Dec 2023 01:00:13 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sun 10 Dec 2023 01:00:13 INFO  [Evaluation]: eval_batch_size = [2048] eval_args: [{'split': {'RS': [0.8, 0.1, 0.1]}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}, 'groupby': 'user'}]
+Sun 10 Dec 2023 01:00:13 WARNING  Max value of item's history interaction records has reached 45.1559934318555% of the total.
+Sun 10 Dec 2023 01:00:13 WARNING  Max value of user's history interaction records has reached 68.61989205859676% of the total.
+Sun 10 Dec 2023 01:00:14 INFO  DMF(
+  (user_linear): Linear(in_features=1297, out_features=64, bias=False)
+  (item_linear): Linear(in_features=609, out_features=64, bias=False)
+  (user_fc_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.0, inplace=False)
+      (1): Linear(in_features=64, out_features=64, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.0, inplace=False)
+      (4): Linear(in_features=64, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (item_fc_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.0, inplace=False)
+      (1): Linear(in_features=64, out_features=64, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.0, inplace=False)
+      (4): Linear(in_features=64, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (sigmoid): Sigmoid()
+  (bce_loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 138624
+Sun 10 Dec 2023 01:00:15 INFO  FLOPs: 138368.0
+Sun 10 Dec 2023 01:00:15 INFO  Time: 0.23435735702514648
+Sun 10 Dec 2023 01:00:15 INFO  epoch 0 training [time: 0.36s, train loss: 35.8724]
+Sun 10 Dec 2023 01:00:16 INFO  epoch 0 evaluating [time: 1.09s, valid_score: 0.232500]
+Sun 10 Dec 2023 01:00:16 INFO  valid result: 
+recall@10 : 0.0991    mrr@10 : 0.2325    ndcg@10 : 0.1181    hit@10 : 0.4539    precision@10 : 0.0771
+Sun 10 Dec 2023 01:00:16 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:17 INFO  epoch 1 training [time: 0.41s, train loss: 35.1472]
+Sun 10 Dec 2023 01:00:18 INFO  epoch 1 evaluating [time: 0.90s, valid_score: 0.213800]
+Sun 10 Dec 2023 01:00:18 INFO  valid result: 
+recall@10 : 0.0987    mrr@10 : 0.2138    ndcg@10 : 0.1135    hit@10 : 0.449    precision@10 : 0.0783
+Sun 10 Dec 2023 01:00:18 INFO  epoch 2 training [time: 0.42s, train loss: 35.0463]
+Sun 10 Dec 2023 01:00:19 INFO  epoch 2 evaluating [time: 0.85s, valid_score: 0.221600]
+Sun 10 Dec 2023 01:00:19 INFO  valid result: 
+recall@10 : 0.0982    mrr@10 : 0.2216    ndcg@10 : 0.1132    hit@10 : 0.449    precision@10 : 0.075
+Sun 10 Dec 2023 01:00:19 INFO  epoch 3 training [time: 0.37s, train loss: 35.0745]
+Sun 10 Dec 2023 01:00:20 INFO  epoch 3 evaluating [time: 0.86s, valid_score: 0.218200]
+Sun 10 Dec 2023 01:00:20 INFO  valid result: 
+recall@10 : 0.0976    mrr@10 : 0.2182    ndcg@10 : 0.1127    hit@10 : 0.4474    precision@10 : 0.0768
+Sun 10 Dec 2023 01:00:20 INFO  epoch 4 training [time: 0.34s, train loss: 35.1054]
+Sun 10 Dec 2023 01:00:21 INFO  epoch 4 evaluating [time: 0.86s, valid_score: 0.212900]
+Sun 10 Dec 2023 01:00:21 INFO  valid result: 
+recall@10 : 0.0945    mrr@10 : 0.2129    ndcg@10 : 0.1111    hit@10 : 0.4474    precision@10 : 0.0788
+Sun 10 Dec 2023 01:00:22 INFO  epoch 5 training [time: 0.37s, train loss: 35.0477]
+Sun 10 Dec 2023 01:00:23 INFO  epoch 5 evaluating [time: 0.92s, valid_score: 0.231000]
+Sun 10 Dec 2023 01:00:23 INFO  valid result: 
+recall@10 : 0.0973    mrr@10 : 0.231    ndcg@10 : 0.1165    hit@10 : 0.4441    precision@10 : 0.0786
+Sun 10 Dec 2023 01:00:23 INFO  epoch 6 training [time: 0.40s, train loss: 35.0289]
+Sun 10 Dec 2023 01:00:24 INFO  epoch 6 evaluating [time: 0.88s, valid_score: 0.221500]
+Sun 10 Dec 2023 01:00:24 INFO  valid result: 
+recall@10 : 0.0948    mrr@10 : 0.2215    ndcg@10 : 0.1129    hit@10 : 0.4457    precision@10 : 0.0768
+Sun 10 Dec 2023 01:00:24 INFO  epoch 7 training [time: 0.41s, train loss: 35.1201]
+Sun 10 Dec 2023 01:00:25 INFO  epoch 7 evaluating [time: 0.90s, valid_score: 0.224500]
+Sun 10 Dec 2023 01:00:25 INFO  valid result: 
+recall@10 : 0.0987    mrr@10 : 0.2245    ndcg@10 : 0.1146    hit@10 : 0.4539    precision@10 : 0.0771
+Sun 10 Dec 2023 01:00:26 INFO  epoch 8 training [time: 0.41s, train loss: 35.0695]
+Sun 10 Dec 2023 01:00:27 INFO  epoch 8 evaluating [time: 0.89s, valid_score: 0.214400]
+Sun 10 Dec 2023 01:00:27 INFO  valid result: 
+recall@10 : 0.0971    mrr@10 : 0.2144    ndcg@10 : 0.113    hit@10 : 0.449    precision@10 : 0.0776
+Sun 10 Dec 2023 01:00:27 INFO  epoch 9 training [time: 0.42s, train loss: 35.0681]
+Sun 10 Dec 2023 01:00:28 INFO  epoch 9 evaluating [time: 0.88s, valid_score: 0.218100]
+Sun 10 Dec 2023 01:00:28 INFO  valid result: 
+recall@10 : 0.0953    mrr@10 : 0.2181    ndcg@10 : 0.1131    hit@10 : 0.4359    precision@10 : 0.0763
+Sun 10 Dec 2023 01:00:28 INFO  epoch 10 training [time: 0.40s, train loss: 34.8825]
+Sun 10 Dec 2023 01:00:29 INFO  epoch 10 evaluating [time: 0.86s, valid_score: 0.245000]
+Sun 10 Dec 2023 01:00:29 INFO  valid result: 
+recall@10 : 0.1194    mrr@10 : 0.245    ndcg@10 : 0.1348    hit@10 : 0.4786    precision@10 : 0.0923
+Sun 10 Dec 2023 01:00:29 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:29 INFO  epoch 11 training [time: 0.40s, train loss: 34.3363]
+Sun 10 Dec 2023 01:00:30 INFO  epoch 11 evaluating [time: 0.89s, valid_score: 0.260900]
+Sun 10 Dec 2023 01:00:30 INFO  valid result: 
+recall@10 : 0.1295    mrr@10 : 0.2609    ndcg@10 : 0.1438    hit@10 : 0.5312    precision@10 : 0.0964
+Sun 10 Dec 2023 01:00:30 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:31 INFO  epoch 12 training [time: 0.36s, train loss: 33.8857]
+Sun 10 Dec 2023 01:00:32 INFO  epoch 12 evaluating [time: 0.83s, valid_score: 0.258000]
+Sun 10 Dec 2023 01:00:32 INFO  valid result: 
+recall@10 : 0.1315    mrr@10 : 0.258    ndcg@10 : 0.1467    hit@10 : 0.5099    precision@10 : 0.1008
+Sun 10 Dec 2023 01:00:32 INFO  epoch 13 training [time: 0.53s, train loss: 33.7137]
+Sun 10 Dec 2023 01:00:33 INFO  epoch 13 evaluating [time: 0.84s, valid_score: 0.272900]
+Sun 10 Dec 2023 01:00:33 INFO  valid result: 
+recall@10 : 0.1404    mrr@10 : 0.2729    ndcg@10 : 0.1558    hit@10 : 0.5395    precision@10 : 0.1067
+Sun 10 Dec 2023 01:00:33 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:33 INFO  epoch 14 training [time: 0.49s, train loss: 33.5161]
+Sun 10 Dec 2023 01:00:34 INFO  epoch 14 evaluating [time: 0.86s, valid_score: 0.277300]
+Sun 10 Dec 2023 01:00:34 INFO  valid result: 
+recall@10 : 0.1446    mrr@10 : 0.2773    ndcg@10 : 0.1606    hit@10 : 0.5543    precision@10 : 0.1097
+Sun 10 Dec 2023 01:00:34 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:35 INFO  epoch 15 training [time: 0.38s, train loss: 33.4694]
+Sun 10 Dec 2023 01:00:36 INFO  epoch 15 evaluating [time: 0.88s, valid_score: 0.272500]
+Sun 10 Dec 2023 01:00:36 INFO  valid result: 
+recall@10 : 0.1361    mrr@10 : 0.2725    ndcg@10 : 0.1527    hit@10 : 0.5411    precision@10 : 0.1012
+Sun 10 Dec 2023 01:00:36 INFO  epoch 16 training [time: 0.38s, train loss: 33.4504]
+Sun 10 Dec 2023 01:00:37 INFO  epoch 16 evaluating [time: 0.86s, valid_score: 0.290600]
+Sun 10 Dec 2023 01:00:37 INFO  valid result: 
+recall@10 : 0.1432    mrr@10 : 0.2906    ndcg@10 : 0.1635    hit@10 : 0.5477    precision@10 : 0.1104
+Sun 10 Dec 2023 01:00:37 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:37 INFO  epoch 17 training [time: 0.45s, train loss: 33.3944]
+Sun 10 Dec 2023 01:00:38 INFO  epoch 17 evaluating [time: 0.89s, valid_score: 0.296300]
+Sun 10 Dec 2023 01:00:38 INFO  valid result: 
+recall@10 : 0.1422    mrr@10 : 0.2963    ndcg@10 : 0.1635    hit@10 : 0.5444    precision@10 : 0.1089
+Sun 10 Dec 2023 01:00:38 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:39 INFO  epoch 18 training [time: 0.35s, train loss: 33.3115]
+Sun 10 Dec 2023 01:00:39 INFO  epoch 18 evaluating [time: 0.87s, valid_score: 0.283100]
+Sun 10 Dec 2023 01:00:39 INFO  valid result: 
+recall@10 : 0.1405    mrr@10 : 0.2831    ndcg@10 : 0.1581    hit@10 : 0.5444    precision@10 : 0.1066
+Sun 10 Dec 2023 01:00:40 INFO  epoch 19 training [time: 0.37s, train loss: 33.2672]
+Sun 10 Dec 2023 01:00:41 INFO  epoch 19 evaluating [time: 0.85s, valid_score: 0.291300]
+Sun 10 Dec 2023 01:00:41 INFO  valid result: 
+recall@10 : 0.1436    mrr@10 : 0.2913    ndcg@10 : 0.1626    hit@10 : 0.5576    precision@10 : 0.1089
+Sun 10 Dec 2023 01:00:41 INFO  epoch 20 training [time: 0.34s, train loss: 33.2405]
+Sun 10 Dec 2023 01:00:42 INFO  epoch 20 evaluating [time: 0.85s, valid_score: 0.279700]
+Sun 10 Dec 2023 01:00:42 INFO  valid result: 
+recall@10 : 0.1329    mrr@10 : 0.2797    ndcg@10 : 0.1548    hit@10 : 0.5378    precision@10 : 0.1036
+Sun 10 Dec 2023 01:00:42 INFO  epoch 21 training [time: 0.36s, train loss: 33.1861]
+Sun 10 Dec 2023 01:00:43 INFO  epoch 21 evaluating [time: 0.88s, valid_score: 0.301600]
+Sun 10 Dec 2023 01:00:43 INFO  valid result: 
+recall@10 : 0.1479    mrr@10 : 0.3016    ndcg@10 : 0.169    hit@10 : 0.5658    precision@10 : 0.1135
+Sun 10 Dec 2023 01:00:43 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:43 INFO  epoch 22 training [time: 0.36s, train loss: 33.1025]
+Sun 10 Dec 2023 01:00:44 INFO  epoch 22 evaluating [time: 0.96s, valid_score: 0.298500]
+Sun 10 Dec 2023 01:00:44 INFO  valid result: 
+recall@10 : 0.1458    mrr@10 : 0.2985    ndcg@10 : 0.1664    hit@10 : 0.5592    precision@10 : 0.1105
+Sun 10 Dec 2023 01:00:45 INFO  epoch 23 training [time: 0.39s, train loss: 33.0363]
+Sun 10 Dec 2023 01:00:46 INFO  epoch 23 evaluating [time: 0.97s, valid_score: 0.295100]
+Sun 10 Dec 2023 01:00:46 INFO  valid result: 
+recall@10 : 0.1493    mrr@10 : 0.2951    ndcg@10 : 0.1688    hit@10 : 0.5641    precision@10 : 0.1137
+Sun 10 Dec 2023 01:00:46 INFO  epoch 24 training [time: 0.37s, train loss: 32.9191]
+Sun 10 Dec 2023 01:00:47 INFO  epoch 24 evaluating [time: 0.95s, valid_score: 0.297700]
+Sun 10 Dec 2023 01:00:47 INFO  valid result: 
+recall@10 : 0.1486    mrr@10 : 0.2977    ndcg@10 : 0.1702    hit@10 : 0.5707    precision@10 : 0.116
+Sun 10 Dec 2023 01:00:47 INFO  epoch 25 training [time: 0.36s, train loss: 32.8452]
+Sun 10 Dec 2023 01:00:48 INFO  epoch 25 evaluating [time: 0.94s, valid_score: 0.293300]
+Sun 10 Dec 2023 01:00:48 INFO  valid result: 
+recall@10 : 0.1491    mrr@10 : 0.2933    ndcg@10 : 0.1675    hit@10 : 0.5855    precision@10 : 0.1137
+Sun 10 Dec 2023 01:00:49 INFO  epoch 26 training [time: 0.35s, train loss: 32.7453]
+Sun 10 Dec 2023 01:00:50 INFO  epoch 26 evaluating [time: 0.91s, valid_score: 0.291700]
+Sun 10 Dec 2023 01:00:50 INFO  valid result: 
+recall@10 : 0.1424    mrr@10 : 0.2917    ndcg@10 : 0.1655    hit@10 : 0.5625    precision@10 : 0.1125
+Sun 10 Dec 2023 01:00:50 INFO  epoch 27 training [time: 0.37s, train loss: 32.7052]
+Sun 10 Dec 2023 01:00:51 INFO  epoch 27 evaluating [time: 0.93s, valid_score: 0.283900]
+Sun 10 Dec 2023 01:00:51 INFO  valid result: 
+recall@10 : 0.1456    mrr@10 : 0.2839    ndcg@10 : 0.1654    hit@10 : 0.5674    precision@10 : 0.1127
+Sun 10 Dec 2023 01:00:51 INFO  epoch 28 training [time: 0.36s, train loss: 32.6640]
+Sun 10 Dec 2023 01:00:52 INFO  epoch 28 evaluating [time: 0.94s, valid_score: 0.299800]
+Sun 10 Dec 2023 01:00:52 INFO  valid result: 
+recall@10 : 0.1534    mrr@10 : 0.2998    ndcg@10 : 0.1732    hit@10 : 0.5757    precision@10 : 0.1173
+Sun 10 Dec 2023 01:00:53 INFO  epoch 29 training [time: 0.35s, train loss: 32.7361]
+Sun 10 Dec 2023 01:00:53 INFO  epoch 29 evaluating [time: 0.89s, valid_score: 0.290800]
+Sun 10 Dec 2023 01:00:53 INFO  valid result: 
+recall@10 : 0.1527    mrr@10 : 0.2908    ndcg@10 : 0.1713    hit@10 : 0.5839    precision@10 : 0.1191
+Sun 10 Dec 2023 01:00:54 INFO  epoch 30 training [time: 0.36s, train loss: 32.7139]
+Sun 10 Dec 2023 01:00:55 INFO  epoch 30 evaluating [time: 0.97s, valid_score: 0.312100]
+Sun 10 Dec 2023 01:00:55 INFO  valid result: 
+recall@10 : 0.1704    mrr@10 : 0.3121    ndcg@10 : 0.1851    hit@10 : 0.6102    precision@10 : 0.1248
+Sun 10 Dec 2023 01:00:55 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:55 INFO  epoch 31 training [time: 0.38s, train loss: 32.5548]
+Sun 10 Dec 2023 01:00:56 INFO  epoch 31 evaluating [time: 0.96s, valid_score: 0.321600]
+Sun 10 Dec 2023 01:00:56 INFO  valid result: 
+recall@10 : 0.1687    mrr@10 : 0.3216    ndcg@10 : 0.186    hit@10 : 0.6086    precision@10 : 0.1214
+Sun 10 Dec 2023 01:00:56 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:57 INFO  epoch 32 training [time: 0.37s, train loss: 32.5101]
+Sun 10 Dec 2023 01:00:57 INFO  epoch 32 evaluating [time: 0.89s, valid_score: 0.317100]
+Sun 10 Dec 2023 01:00:57 INFO  valid result: 
+recall@10 : 0.1696    mrr@10 : 0.3171    ndcg@10 : 0.1863    hit@10 : 0.6168    precision@10 : 0.1238
+Sun 10 Dec 2023 01:00:58 INFO  epoch 33 training [time: 0.38s, train loss: 32.5289]
+Sun 10 Dec 2023 01:00:59 INFO  epoch 33 evaluating [time: 0.96s, valid_score: 0.332100]
+Sun 10 Dec 2023 01:00:59 INFO  valid result: 
+recall@10 : 0.1737    mrr@10 : 0.3321    ndcg@10 : 0.1916    hit@10 : 0.6217    precision@10 : 0.1258
+Sun 10 Dec 2023 01:00:59 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:00:59 INFO  epoch 34 training [time: 0.39s, train loss: 32.4120]
+Sun 10 Dec 2023 01:01:00 INFO  epoch 34 evaluating [time: 0.95s, valid_score: 0.327200]
+Sun 10 Dec 2023 01:01:00 INFO  valid result: 
+recall@10 : 0.1718    mrr@10 : 0.3272    ndcg@10 : 0.1869    hit@10 : 0.6168    precision@10 : 0.1224
+Sun 10 Dec 2023 01:01:01 INFO  epoch 35 training [time: 0.39s, train loss: 32.4012]
+Sun 10 Dec 2023 01:01:01 INFO  epoch 35 evaluating [time: 0.93s, valid_score: 0.327600]
+Sun 10 Dec 2023 01:01:01 INFO  valid result: 
+recall@10 : 0.172    mrr@10 : 0.3276    ndcg@10 : 0.1896    hit@10 : 0.6135    precision@10 : 0.1243
+Sun 10 Dec 2023 01:01:02 INFO  epoch 36 training [time: 0.39s, train loss: 32.3337]
+Sun 10 Dec 2023 01:01:03 INFO  epoch 36 evaluating [time: 0.94s, valid_score: 0.326000]
+Sun 10 Dec 2023 01:01:03 INFO  valid result: 
+recall@10 : 0.1778    mrr@10 : 0.326    ndcg@10 : 0.191    hit@10 : 0.6151    precision@10 : 0.1253
+Sun 10 Dec 2023 01:01:03 INFO  epoch 37 training [time: 0.47s, train loss: 32.2937]
+Sun 10 Dec 2023 01:01:04 INFO  epoch 37 evaluating [time: 0.95s, valid_score: 0.320900]
+Sun 10 Dec 2023 01:01:04 INFO  valid result: 
+recall@10 : 0.174    mrr@10 : 0.3209    ndcg@10 : 0.1874    hit@10 : 0.6168    precision@10 : 0.1257
+Sun 10 Dec 2023 01:01:05 INFO  epoch 38 training [time: 0.40s, train loss: 32.3473]
+Sun 10 Dec 2023 01:01:06 INFO  epoch 38 evaluating [time: 0.96s, valid_score: 0.333500]
+Sun 10 Dec 2023 01:01:06 INFO  valid result: 
+recall@10 : 0.1785    mrr@10 : 0.3335    ndcg@10 : 0.1934    hit@10 : 0.6316    precision@10 : 0.1273
+Sun 10 Dec 2023 01:01:06 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:01:06 INFO  epoch 39 training [time: 0.39s, train loss: 32.1860]
+Sun 10 Dec 2023 01:01:07 INFO  epoch 39 evaluating [time: 0.86s, valid_score: 0.328900]
+Sun 10 Dec 2023 01:01:07 INFO  valid result: 
+recall@10 : 0.1806    mrr@10 : 0.3289    ndcg@10 : 0.1929    hit@10 : 0.6365    precision@10 : 0.1296
+Sun 10 Dec 2023 01:01:07 INFO  epoch 40 training [time: 0.40s, train loss: 32.2373]
+Sun 10 Dec 2023 01:01:08 INFO  epoch 40 evaluating [time: 0.96s, valid_score: 0.342200]
+Sun 10 Dec 2023 01:01:08 INFO  valid result: 
+recall@10 : 0.1778    mrr@10 : 0.3422    ndcg@10 : 0.1983    hit@10 : 0.6299    precision@10 : 0.1299
+Sun 10 Dec 2023 01:01:08 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:01:09 INFO  epoch 41 training [time: 0.37s, train loss: 32.1486]
+Sun 10 Dec 2023 01:01:09 INFO  epoch 41 evaluating [time: 0.91s, valid_score: 0.317800]
+Sun 10 Dec 2023 01:01:09 INFO  valid result: 
+recall@10 : 0.1841    mrr@10 : 0.3178    ndcg@10 : 0.1933    hit@10 : 0.6447    precision@10 : 0.1321
+Sun 10 Dec 2023 01:01:10 INFO  epoch 42 training [time: 0.41s, train loss: 32.0936]
+Sun 10 Dec 2023 01:01:11 INFO  epoch 42 evaluating [time: 0.92s, valid_score: 0.325800]
+Sun 10 Dec 2023 01:01:11 INFO  valid result: 
+recall@10 : 0.1819    mrr@10 : 0.3258    ndcg@10 : 0.1958    hit@10 : 0.6332    precision@10 : 0.1308
+Sun 10 Dec 2023 01:01:11 INFO  epoch 43 training [time: 0.38s, train loss: 32.0375]
+Sun 10 Dec 2023 01:01:12 INFO  epoch 43 evaluating [time: 0.89s, valid_score: 0.335500]
+Sun 10 Dec 2023 01:01:12 INFO  valid result: 
+recall@10 : 0.1853    mrr@10 : 0.3355    ndcg@10 : 0.2007    hit@10 : 0.6382    precision@10 : 0.1319
+Sun 10 Dec 2023 01:01:12 INFO  epoch 44 training [time: 0.38s, train loss: 32.0129]
+Sun 10 Dec 2023 01:01:13 INFO  epoch 44 evaluating [time: 0.94s, valid_score: 0.338600]
+Sun 10 Dec 2023 01:01:13 INFO  valid result: 
+recall@10 : 0.1798    mrr@10 : 0.3386    ndcg@10 : 0.1986    hit@10 : 0.6283    precision@10 : 0.1294
+Sun 10 Dec 2023 01:01:14 INFO  epoch 45 training [time: 0.38s, train loss: 32.0492]
+Sun 10 Dec 2023 01:01:15 INFO  epoch 45 evaluating [time: 0.90s, valid_score: 0.338700]
+Sun 10 Dec 2023 01:01:15 INFO  valid result: 
+recall@10 : 0.1734    mrr@10 : 0.3387    ndcg@10 : 0.1948    hit@10 : 0.6184    precision@10 : 0.1252
+Sun 10 Dec 2023 01:01:15 INFO  epoch 46 training [time: 0.45s, train loss: 31.9400]
+Sun 10 Dec 2023 01:01:16 INFO  epoch 46 evaluating [time: 0.94s, valid_score: 0.327800]
+Sun 10 Dec 2023 01:01:16 INFO  valid result: 
+recall@10 : 0.1767    mrr@10 : 0.3278    ndcg@10 : 0.1923    hit@10 : 0.6266    precision@10 : 0.1266
+Sun 10 Dec 2023 01:01:16 INFO  epoch 47 training [time: 0.38s, train loss: 31.8808]
+Sun 10 Dec 2023 01:01:17 INFO  epoch 47 evaluating [time: 0.92s, valid_score: 0.342800]
+Sun 10 Dec 2023 01:01:17 INFO  valid result: 
+recall@10 : 0.187    mrr@10 : 0.3428    ndcg@10 : 0.2018    hit@10 : 0.6447    precision@10 : 0.1321
+Sun 10 Dec 2023 01:01:17 INFO  Saving current: saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:01:18 INFO  epoch 48 training [time: 0.38s, train loss: 31.8832]
+Sun 10 Dec 2023 01:01:19 INFO  epoch 48 evaluating [time: 0.90s, valid_score: 0.333700]
+Sun 10 Dec 2023 01:01:19 INFO  valid result: 
+recall@10 : 0.1795    mrr@10 : 0.3337    ndcg@10 : 0.1961    hit@10 : 0.6365    precision@10 : 0.1303
+Sun 10 Dec 2023 01:01:19 INFO  epoch 49 training [time: 0.37s, train loss: 31.7797]
+Sun 10 Dec 2023 01:01:20 INFO  epoch 49 evaluating [time: 0.88s, valid_score: 0.329100]
+Sun 10 Dec 2023 01:01:20 INFO  valid result: 
+recall@10 : 0.1842    mrr@10 : 0.3291    ndcg@10 : 0.1963    hit@10 : 0.6365    precision@10 : 0.128
+Sun 10 Dec 2023 01:01:20 INFO  epoch 50 training [time: 0.37s, train loss: 31.7086]
+Sun 10 Dec 2023 01:01:21 INFO  epoch 50 evaluating [time: 0.87s, valid_score: 0.337200]
+Sun 10 Dec 2023 01:01:21 INFO  valid result: 
+recall@10 : 0.1814    mrr@10 : 0.3372    ndcg@10 : 0.1984    hit@10 : 0.6332    precision@10 : 0.1306
+Sun 10 Dec 2023 01:01:22 INFO  epoch 51 training [time: 0.39s, train loss: 31.7167]
+Sun 10 Dec 2023 01:01:22 INFO  epoch 51 evaluating [time: 0.96s, valid_score: 0.322900]
+Sun 10 Dec 2023 01:01:22 INFO  valid result: 
+recall@10 : 0.1838    mrr@10 : 0.3229    ndcg@10 : 0.1934    hit@10 : 0.648    precision@10 : 0.1286
+Sun 10 Dec 2023 01:01:23 INFO  epoch 52 training [time: 0.38s, train loss: 31.6453]
+Sun 10 Dec 2023 01:01:24 INFO  epoch 52 evaluating [time: 0.96s, valid_score: 0.334800]
+Sun 10 Dec 2023 01:01:24 INFO  valid result: 
+recall@10 : 0.1855    mrr@10 : 0.3348    ndcg@10 : 0.1974    hit@10 : 0.6382    precision@10 : 0.1286
+Sun 10 Dec 2023 01:01:24 INFO  epoch 53 training [time: 0.39s, train loss: 31.6199]
+Sun 10 Dec 2023 01:01:25 INFO  epoch 53 evaluating [time: 0.94s, valid_score: 0.336100]
+Sun 10 Dec 2023 01:01:25 INFO  valid result: 
+recall@10 : 0.1787    mrr@10 : 0.3361    ndcg@10 : 0.1945    hit@10 : 0.6447    precision@10 : 0.1262
+Sun 10 Dec 2023 01:01:26 INFO  epoch 54 training [time: 0.40s, train loss: 31.6015]
+Sun 10 Dec 2023 01:01:27 INFO  epoch 54 evaluating [time: 0.94s, valid_score: 0.320400]
+Sun 10 Dec 2023 01:01:27 INFO  valid result: 
+recall@10 : 0.1818    mrr@10 : 0.3204    ndcg@10 : 0.192    hit@10 : 0.6349    precision@10 : 0.1276
+Sun 10 Dec 2023 01:01:27 INFO  epoch 55 training [time: 0.39s, train loss: 31.5460]
+Sun 10 Dec 2023 01:01:28 INFO  epoch 55 evaluating [time: 0.93s, valid_score: 0.331300]
+Sun 10 Dec 2023 01:01:28 INFO  valid result: 
+recall@10 : 0.1842    mrr@10 : 0.3313    ndcg@10 : 0.1964    hit@10 : 0.6365    precision@10 : 0.1288
+Sun 10 Dec 2023 01:01:28 INFO  epoch 56 training [time: 0.45s, train loss: 31.4568]
+Sun 10 Dec 2023 01:01:29 INFO  epoch 56 evaluating [time: 0.91s, valid_score: 0.328300]
+Sun 10 Dec 2023 01:01:29 INFO  valid result: 
+recall@10 : 0.1848    mrr@10 : 0.3283    ndcg@10 : 0.1949    hit@10 : 0.653    precision@10 : 0.1291
+Sun 10 Dec 2023 01:01:30 INFO  epoch 57 training [time: 0.38s, train loss: 31.4706]
+Sun 10 Dec 2023 01:01:30 INFO  epoch 57 evaluating [time: 0.87s, valid_score: 0.322900]
+Sun 10 Dec 2023 01:01:30 INFO  valid result: 
+recall@10 : 0.1811    mrr@10 : 0.3229    ndcg@10 : 0.1935    hit@10 : 0.6349    precision@10 : 0.128
+Sun 10 Dec 2023 01:01:31 INFO  epoch 58 training [time: 0.42s, train loss: 31.5204]
+Sun 10 Dec 2023 01:01:32 INFO  epoch 58 evaluating [time: 0.97s, valid_score: 0.311200]
+Sun 10 Dec 2023 01:01:32 INFO  valid result: 
+recall@10 : 0.184    mrr@10 : 0.3112    ndcg@10 : 0.1911    hit@10 : 0.6365    precision@10 : 0.1298
+Sun 10 Dec 2023 01:01:32 INFO  Finished training, best eval result in epoch 47
+Sun 10 Dec 2023 01:01:32 INFO  Loading model structure and parameters from saved/DMF-Dec-10-2023_01-00-15.pth
+Sun 10 Dec 2023 01:01:34 INFO  The running environment of this training is as follows:
++-------------+---------------+
+| Environment |     Usage     |
++=============+===============+
+| CPU         |    0.90 %     |
++-------------+---------------+
+| GPU         | 0.09 G/3.81 G |
++-------------+---------------+
+| Memory      | 3.48 G/7.62 G |
++-------------+---------------+
+Sun 10 Dec 2023 01:01:34 INFO  best valid : OrderedDict([('recall@10', 0.187), ('mrr@10', 0.3428), ('ndcg@10', 0.2018), ('hit@10', 0.6447), ('precision@10', 0.1321)])
+Sun 10 Dec 2023 01:01:34 INFO  test result: OrderedDict([('recall@10', 0.185), ('mrr@10', 0.3461), ('ndcg@10', 0.2127), ('hit@10', 0.6414), ('precision@10', 0.1477)])

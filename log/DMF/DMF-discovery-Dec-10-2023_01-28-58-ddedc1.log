@@ -1,0 +1,164 @@
+Sun 10 Dec 2023 01:28:58 INFO  ['main.py', '--config-file', 'general/DMF.yaml']
+Sun 10 Dec 2023 01:28:58 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./dataset/discovery
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 500
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'RS': [0.8, 0.1, 0.1]}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}, 'groupby': 'user'}
+repeatable = False
+metrics = ['Recall', 'MRR', 'NDCG', 'Hit', 'Precision']
+topk = [10]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 2048
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id', 'timestamp'], 'item': ['item_id', 'type']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [10, inf)
+item_inter_num_interval = [20, inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+inter_matrix_type = 01
+user_embedding_size = 64
+item_embedding_size = 64
+user_hidden_size_list = [64, 64]
+item_hidden_size_list = [64, 64]
+embedding_size = 64
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cuda
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Sun 10 Dec 2023 01:29:02 INFO  discovery
+The number of users: 11281
+Average actions of users: 23.533510638297873
+The number of items: 5739
+Average actions of items: 46.26315789473684
+The number of inters: 265458
+The sparsity of the dataset: 99.58997343580583%
+Remain Fields: ['user_id', 'item_id', 'timestamp', 'type']
+Sun 10 Dec 2023 01:29:03 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sun 10 Dec 2023 01:29:03 INFO  [Evaluation]: eval_batch_size = [2048] eval_args: [{'split': {'RS': [0.8, 0.1, 0.1]}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}, 'groupby': 'user'}]
+Sun 10 Dec 2023 01:29:04 INFO  DMF(
+  (user_linear): Linear(in_features=5739, out_features=64, bias=False)
+  (item_linear): Linear(in_features=11281, out_features=64, bias=False)
+  (user_fc_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.0, inplace=False)
+      (1): Linear(in_features=64, out_features=64, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.0, inplace=False)
+      (4): Linear(in_features=64, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (item_fc_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.0, inplace=False)
+      (1): Linear(in_features=64, out_features=64, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.0, inplace=False)
+      (4): Linear(in_features=64, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (sigmoid): Sigmoid()
+  (bce_loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 1105920
+Sun 10 Dec 2023 01:29:04 INFO  FLOPs: 1105664.0
+Sun 10 Dec 2023 01:29:04 INFO  Time: 0.18473172187805176
+Sun 10 Dec 2023 01:29:07 INFO  epoch 0 training [time: 2.06s, train loss: 145.1355]
+Sun 10 Dec 2023 01:29:28 INFO  epoch 0 evaluating [time: 21.57s, valid_score: 0.002200]
+Sun 10 Dec 2023 01:29:28 INFO  valid result: 
+recall@10 : 0.0071    mrr@10 : 0.0022    ndcg@10 : 0.003    hit@10 : 0.0136    precision@10 : 0.0014
+Sun 10 Dec 2023 01:29:28 INFO  Saving current: saved/DMF-Dec-10-2023_01-29-04.pth
+Sun 10 Dec 2023 01:29:30 INFO  epoch 1 training [time: 2.10s, train loss: 144.0079]
+Sun 10 Dec 2023 01:29:51 INFO  epoch 1 evaluating [time: 20.62s, valid_score: 0.002000]
+Sun 10 Dec 2023 01:29:51 INFO  valid result: 
+recall@10 : 0.0051    mrr@10 : 0.002    ndcg@10 : 0.0024    hit@10 : 0.0097    precision@10 : 0.001
+Sun 10 Dec 2023 01:29:53 INFO  epoch 2 training [time: 2.04s, train loss: 143.7826]
+Sun 10 Dec 2023 01:30:14 INFO  epoch 2 evaluating [time: 21.25s, valid_score: 0.002600]
+Sun 10 Dec 2023 01:30:14 INFO  valid result: 
+recall@10 : 0.0077    mrr@10 : 0.0026    ndcg@10 : 0.0033    hit@10 : 0.015    precision@10 : 0.0015
+Sun 10 Dec 2023 01:30:14 INFO  Saving current: saved/DMF-Dec-10-2023_01-29-04.pth
+Sun 10 Dec 2023 01:30:16 INFO  epoch 3 training [time: 2.05s, train loss: 143.8688]
+Sun 10 Dec 2023 01:30:37 INFO  epoch 3 evaluating [time: 21.01s, valid_score: 0.003300]
+Sun 10 Dec 2023 01:30:37 INFO  valid result: 
+recall@10 : 0.0085    mrr@10 : 0.0033    ndcg@10 : 0.0039    hit@10 : 0.0163    precision@10 : 0.0017
+Sun 10 Dec 2023 01:30:37 INFO  Saving current: saved/DMF-Dec-10-2023_01-29-04.pth
+Sun 10 Dec 2023 01:30:39 INFO  epoch 4 training [time: 2.08s, train loss: 143.8121]

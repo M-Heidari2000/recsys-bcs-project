@@ -1,0 +1,32 @@
+# Dataset Config
+data_path: ./dataset/
+dataset: ml-1m
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+load_col:
+  inter: [user_id, item_id, timestamp]
+  item: [item_id, type]
+
+# Model Config
+model: SASRec
+embedding_size: 64
+n_heads: 4
+
+# Training and evaluation_config
+epochs: 500
+learning_rate: 0.001
+train_batch_size: 1024
+eval_batch_size: 2048
+loss_type: CE
+train_neg_sample_args: ~
+eval_args:
+  groupby: user
+  order: TO
+  split: {'RS': [0.8, 0.1, 0.1]}
+  mode: full
+metrics: ['Recall', 'MRR', 'NDCG', 'Hit', 'Precision']
+topk: 10
+valid_metric: MRR@10
+metric_decimal_place: 4
+user_inter_num_interval: "[10, inf)"
+item_inter_num_interval: "[20, inf)"
